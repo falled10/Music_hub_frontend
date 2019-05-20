@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "webpack-dev-server --host 0.0.0.0 --port 3000 --mode development --open --hot",
     "build": "webpack --mode production"
   },
   "keywords": [],
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "jwt-decode": "^2.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-alert": "^5.5.0",
@@ -33,6 +34,7 @@
     "react-transition-group": "^4.0.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "superagent": "^5.0.5"
   }
 }

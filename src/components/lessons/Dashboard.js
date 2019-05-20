@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { loadUser } from "../../actions/auth";
+import { connect } from "react-redux";
 
 export class Dashboard extends Component {
   render() {
@@ -10,4 +12,7 @@ export class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default connect(
+  null,
+  { loadUser }
+)(Dashboard);
