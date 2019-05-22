@@ -32,6 +32,12 @@ export class Register extends Component {
         password
       };
       this.props.register(user);
+      this.setState({
+        name: "",
+        email: "",
+        password: "",
+        password2: ""
+      });
     }
   };
 

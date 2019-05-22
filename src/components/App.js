@@ -15,13 +15,18 @@ import Header from "./layout/Header";
 import Alerts from "./layout/Alerts";
 import Login from "./accounts/Login";
 import Register from "./accounts/Register";
+import VerifyAccount from "./accounts/VerifyAccount";
 import PrivateRoute from "./common/PrivateRoute";
 
 import Dashboard from "./lessons/Dashboard";
+import LessonForm from "./lessons/LessonForm";
+import Lesson from "./lessons/Lesson";
+import LessonUpdateForm from "./lessons/LessonUpdateForm";
 
 import { Provider } from "react-redux";
 import store from "../store";
 import { loadUser } from "../actions/auth";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
 const alertOptions = {
   timeout: 3000,
@@ -41,9 +46,24 @@ export class App extends Component {
             <Header />
             <Alerts />
             <Switch>
-              <PrivateRoute exact path="/" component={Dashboard} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
+              <div className="container">
+                <PrivateRoute exact path="/" component={Dashboard} />
+                <PrivateRoute
+                  exact
+                  path="/create-lesson"
+                  component={LessonForm}
+                />
+                <PrivateRoute exact path="/lesson/:slug" component={Lesson} />
+                <PrivateRoute
+                  exact
+                  path="/update/:slug"
+                  component={LessonUpdateForm}
+                />
+
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/verify/:uuid" component={VerifyAccount} />
+                <Route exact path="/register" component={Register} />
+              </div>
             </Switch>
           </Router>
         </AlertProvider>

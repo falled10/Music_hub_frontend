@@ -1,5 +1,5 @@
 import axios from "axios";
-import { returnErrors } from "./messages";
+import { returnErrors, createMessage } from "./messages";
 
 import {
   USER_LOADED,
@@ -10,9 +10,42 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   LOGOUT_SUCCESS,
-  TOKEN_REFRESHED,
-  TOKEN_NOT_REFRESHED
+  GET_USERS,
+  USERS_LOADING,
+  USERS_NOT_LOADED,
+  GET_USER
 } from "./types";
+
+export const getUser = id => (dispatch, getState) => {
+  axios
+    .get(`http://localhost:8000/api/users/${id}`, tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: GET_USER,
+        payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+export const getUsers = () => (dispatch, getState) => {
+  dispatch({
+    type: USERS_LOADING
+  });
+
+  axios
+    .get("http://localhost:8000/api/users/", tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: GET_USERS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({ type: USERS_NOT_LOADED });
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
+};
 
 export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: USER_LOADING });
@@ -81,7 +114,12 @@ export const register = ({ name, email, password }) => dispatch => {
       dispatch({
         type: REGISTER_SUCCESS
       });
-      dispatch(login(email, password));
+      dispatch(
+        createMessage({
+          verifyAccount:
+            "You chould verify your account!, please follow the link that we send you in email."
+        })
+      );
     })
     .catch(err => {
       dispatch(returnErrors(err.response.data, err.response.status));

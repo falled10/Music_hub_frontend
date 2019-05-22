@@ -5,7 +5,8 @@ import {
   TOKEN_REFRESHED,
   TOKEN_NOT_REFRESHED,
   USER_LOADED,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  GET_USERS
 } from "../actions/types";
 
 export default function refreshTokenMiddleware() {

@@ -18,6 +18,12 @@ export class Alerts extends Component {
       if (error.msg.name) {
         alert.error(`Name ${error.msg.name.join()}`);
       }
+      if (error.msg.title) {
+        alert.error(`Title ${error.msg.title.join()}`);
+      }
+      if (error.msg.body) {
+        alert.error(`Body ${error.msg.body.join()}`);
+      }
       if (error.msg.password) {
         alert.error(`Password ${error.msg.password.join()}`);
       }
@@ -30,9 +36,17 @@ export class Alerts extends Component {
     }
 
     if (message !== prevProps.message) {
+      if (message.createLesson) {
+        alert.success(message.createLesson);
+      }
+      if (message.updateLesson) {
+        alert.success(message.updateLesson);
+      }
       if (message.passwordsNotMatch) {
-        console.log("something");
         alert.error(message.passwordsNotMatch);
+      }
+      if (message.verifyAccount) {
+        alert.success(message.verifyAccount);
       }
     }
   }

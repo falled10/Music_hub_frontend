@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+console.log("suka");
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
@@ -10,6 +11,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => (
       if (auth.isLoading) {
         return <h2>Loading...</h2>;
       } else if (!auth.isAuthenticated && !auth.isLoading) {
+        console.log("fuck");
         return <Redirect to="/login" />;
       } else {
         return <Component {...props} />;

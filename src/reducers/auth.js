@@ -8,7 +8,11 @@ import {
   TOKEN_NOT_REFRESHED,
   TOKEN_REFRESHED,
   REGISTER_FAIL,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  GET_USERS,
+  USERS_LOADING,
+  USERS_NOT_LOADED,
+  GET_USER
 } from "../actions/types";
 
 const initialState = {
@@ -16,11 +20,39 @@ const initialState = {
   refresh: localStorage.getItem("refresh"),
   isAuthenticated: false,
   isLoading: false,
-  user: null
+  usersIsLoading: false,
+  user: null,
+  users: [],
+  otherUser: null
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case GET_USER:
+      return {
+        ...state,
+        otherUser: action.payload
+      };
+
+    case USERS_LOADING:
+      return {
+        ...state,
+        usersIsLoading: true
+      };
+
+    case GET_USERS:
+      return {
+        ...state,
+        usersIsLoading: false,
+        users: action.payload
+      };
+    case USERS_NOT_LOADED:
+      return {
+        ...state,
+        users: [],
+        usersIsLoading: false
+      };
+
     case USER_LOADING:
       return {
         ...state,
