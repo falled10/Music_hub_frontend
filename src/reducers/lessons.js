@@ -2,7 +2,10 @@ import {
   CREATE_LESSON,
   GET_LESSONS,
   GET_LESSON,
-  UPDATE_LESSON
+  UPDATE_LESSON,
+  DELETE_LESSON,
+  LIKE_LESSON,
+  DISLIKE_LESSON
 } from "../actions/types";
 
 const initialState = {
@@ -41,5 +44,33 @@ export default function(state = initialState, action) {
 
     default:
       return state;
+
+    case DELETE_LESSON:
+      return {
+        ...state,
+        lessons: state.lessons.filter(lesson => lesson.slug !== action.payload)
+      };
+
+    case LIKE_LESSON:
+      state.lessons.find(lesson => lesson.slug === action.slug).likes = [
+        ...state.lessons
+          .find(l => l.slug === action.slug)
+          .likes.filter(l => l.liker !== action.payload.liker),
+        action.payload
+      ];
+      return {
+        ...state,
+        lessons: [...state.lessons]
+      };
+    case DISLIKE_LESSON:
+      state.lessons.find(lesson => lesson.slug === action.slug).likes = [
+        ...state.lessons
+          .find(l => l.slug === action.slug)
+          .likes.filter(l => l.liker !== action.payload)
+      ];
+      return {
+        ...state,
+        lessons: [...state.lessons]
+      };
   }
 }

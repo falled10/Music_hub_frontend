@@ -19,3 +19,6 @@ export const USERS_LOADING = "USERS_LOADING";
 export const USERS_NOT_LOADED = "USERS_NOT_LOADED";
 export const GET_USER = "GET_USER";
 export const UPDATE_LESSON = "UPDATE_LESSON";
+export const DELETE_LESSON = "DELETE_LESSON";
+export const LIKE_LESSON = "LIKE_LESSON";
+export const DISLIKE_LESSON = "DISLIKE_LESSON";
