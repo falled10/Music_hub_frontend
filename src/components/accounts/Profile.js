@@ -28,7 +28,7 @@ export class Profile extends Component {
                     )}
 
                     <div className="name">{user.name}</div>
-                    <div className="job">Rock musician</div>
+                    <div className="job">{user.email}</div>
                     <div className="actions">
                       <Link to="/profile/update" className="btn">
                         Settings

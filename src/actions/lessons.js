@@ -81,13 +81,14 @@ export const deleteLesson = slug => (dispatch, getState) => {
       tokenConfig(getState)
     )
     .then(res => {
-      dispatch(
-        createMessage({ deleteLesson: "Lesson was deleted successful" })
-      );
       dispatch({
         type: DELETE_LESSON,
         payload: slug
       });
+
+      dispatch(
+        createMessage({ deleteLesson: "Lesson was deleted successful" })
+      );
     })
     .catch(err =>
       dispatch(returnErrors(err.response.data, err.response.status))

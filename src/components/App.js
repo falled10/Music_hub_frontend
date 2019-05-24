@@ -18,6 +18,7 @@ import Login from "./accounts/Login";
 import Register from "./accounts/Register";
 import ProfileUpdate from "./accounts/ProfileUpdate";
 import Profile from "./accounts/Profile";
+import UserProfile from "./accounts/UserProfile";
 import VerifyAccount from "./accounts/VerifyAccount";
 import PrivateRoute from "./common/PrivateRoute";
 
@@ -58,6 +59,7 @@ export class App extends Component {
                 />
                 <PrivateRoute exact path="/lesson/:slug" component={Lesson} />
                 <PrivateRoute exact path="/profile" component={Profile} />
+                <PrivateRoute exact path="/user/:id" component={UserProfile} />
                 <PrivateRoute
                   exact
                   path="/profile/update"

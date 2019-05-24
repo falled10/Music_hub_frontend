@@ -137,9 +137,6 @@ export const updateProfile = (name, image, email) => (dispatch, getState) => {
     axios.get(image).then(res => formData.append("image", res.data));
   } else {
     const im = base64StringToFile(image, "preview.png");
-    console.log("here");
-    console.log(im);
-
     formData.append("image", im);
   }
   formData.append("name", name);
@@ -164,6 +161,27 @@ export const updateProfile = (name, image, email) => (dispatch, getState) => {
     });
 };
 
+export const sendRequest = (recipient, title, body) => (
+  dispatch,
+  getState
+) => {
+  const request = JSON.stringify({ title, body, recipient });
+  axios
+    .post(
+      "http://localhost:8000/api/requests/",
+      request,
+      tokenConfig(getState)
+    )
+    .then(res => {
+      dispatch(
+        createMessage({ requestCreated: "Request was successful sended" })
+      );
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
+};
+
 export const tokenConfig = getState => {
   const token = getState().auth.token;
   console.log(getState().auth.token);
@@ -180,27 +198,6 @@ export const tokenConfig = getState => {
 
   return config;
 };
-
-function getBase64Image(imgUrl) {
-  return new Promise(function(resolve, reject) {
-    var img = new Image();
-    img.src = imgUrl;
-    img.setAttribute("crossOrigin", "anonymous");
-
-    img.onload = function() {
-      var canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      var dataURL = canvas.toDataURL("image/png");
-      resolve(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-    };
-    img.onerror = function() {
-      reject("The image could not be loaded.");
-    };
-  });
-}
 
 export function base64StringToFile(base64String, filename) {
   var arr = base64String.split(","),

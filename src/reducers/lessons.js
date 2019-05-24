@@ -66,7 +66,7 @@ export default function(state = initialState, action) {
       state.lessons.find(lesson => lesson.slug === action.slug).likes = [
         ...state.lessons
           .find(l => l.slug === action.slug)
-          .likes.filter(l => l.liker !== action.payload)
+          .likes.filter(l => l.liker.id !== action.payload)
       ];
       return {
         ...state,

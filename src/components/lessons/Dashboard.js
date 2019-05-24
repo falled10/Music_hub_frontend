@@ -39,16 +39,42 @@ export class Dashboard extends Component {
         <div>
           {lessons.map(lesson => (
             <div>
-              <div key={lesson.slug} className="card mt-3">
+              <div key={lesson.slug} className="card mt-1">
                 <div className="card-header">
-                  {users.find(user => user.id === lesson.owner).email}
+                  <Link
+                    to={
+                      lesson.owner.id !== this.props.user.id
+                        ? `/user/${lesson.owner.id}/`
+                        : "/profile"
+                    }
+                  >
+                    {lesson.owner.image ? (
+                      <img
+                        src={lesson.owner.image}
+                        alt="image"
+                        className="img-fluid rounded-circle mr-3"
+                        width="30"
+                        height="30"
+                      />
+                    ) : (
+                      <img
+                        src="https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png"
+                        alt="image"
+                        className="img-fluid rounded-circle mr-1"
+                        width="30"
+                        height="30"
+                      />
+                    )}
+
+                    {lesson.owner.name}
+                  </Link>
                   {this.props.user.id == lesson.owner ? (
                     <p className="text-right">
                       <button
                         type="button"
                         className="btn btn-danger"
                         data-toggle="modal"
-                        data-target="#exampleModal"
+                        data-target={`#${lesson.slug}`}
                       >
                         X
                       </button>
@@ -66,7 +92,7 @@ export class Dashboard extends Component {
                   >
                     Read more...
                   </Link>
-                  {this.props.user.id == lesson.owner ? (
+                  {this.props.user.id == lesson.owner.id ? (
                     <Link
                       to={`/update/${lesson.slug}`}
                       className="btn btn-primary ml-2"
@@ -82,7 +108,7 @@ export class Dashboard extends Component {
                       onClick={this.onLikeLesson.bind(this, lesson.slug)}
                     >
                       {lesson.likes.some(
-                        like => like.liker === this.props.user.id
+                        like => like.liker.id === this.props.user.id
                       ) ? (
                         <i className="fas fa-heart fa-2x" aria-hidden="true" />
                       ) : (
@@ -95,7 +121,7 @@ export class Dashboard extends Component {
               </div>
               <div
                 className="modal fade"
-                id="exampleModal"
+                id={lesson.slug}
                 tabindex="-1"
                 role="dialog"
                 aria-labelledby="exampleModalLabel"
@@ -117,7 +143,7 @@ export class Dashboard extends Component {
                       </button>
                     </div>
                     <div className="modal-body">
-                      Are you sure you want to delete lesson {lesson.title}
+                      Are you sure you want to delete lesson {lesson.slug}
                     </div>
                     <div className="modal-footer">
                       <button
