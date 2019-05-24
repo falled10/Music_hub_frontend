@@ -1,0 +1,211 @@
+.center {
+  position: absolute;
+  top: 50px;
+  left: 40px;
+  height: 498px;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 10px 10px 15px 0 rgba(0, 0, 0, 0.3);
+}
+
+.profile {
+  float: left;
+  width: 400px;
+  height: 520px;
+  text-align: center;
+}
+.profile .image {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  left: 38%;
+  margin-bottom: 150px;
+
+  display: block;
+  border-radius: 50%;
+  background: #f5e8df;
+}
+
+.profile .name {
+  margin-top: -50px;
+  font-size: 35px;
+  font-weight: 600;
+}
+.profile .job {
+  font-size: 21px;
+  line-height: 15px;
+}
+.profile .actions {
+  margin-top: 33px;
+}
+.profile .actions .btn {
+  display: block;
+  width: 170px;
+  height: 30px;
+  margin: 0 auto 10px auto;
+  background: none;
+  border: 1px solid #3b3228;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  color: #3b3228;
+}
+.profile .actions .btn:hover {
+  background: #5fcc83;
+  color: #fff;
+}
+
+.stats {
+  float: left;
+}
+.stats .box {
+  box-sizing: border-box;
+  width: 120px;
+  height: 166px;
+  background: rgb(102, 207, 163);
+  text-align: center;
+  padding-top: 28px;
+  transition: all 0.4s ease-in-out;
+}
+.stats .box:hover {
+  background: rgb(75, 167, 121);
+  cursor: pointer;
+}
+.stats .box:nth-child(2) {
+  border-bottom: 1px solid rgb(75, 167, 121);
+  border-top: 1px solid rgb(75, 167, 121);
+}
+.stats span {
+  display: block;
+}
+.stats .value {
+  font-size: 28px;
+  font-weight: 600;
+}
+.stats .parameter {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 992px) {
+  .stats {
+    display: flex;
+  }
+
+  .stats .box {
+    width: 133px;
+    height: 130px;
+  }
+
+  .stats .box:nth-child(2) {
+    border: none;
+    border-left: 1px solid rgb(75, 167, 121);
+    border-right: 1px solid rgb(75, 167, 121);
+  }
+
+  .stats .value {
+    font-size: 23px;
+  }
+
+  .stats .parameter {
+    font-size: 15px;
+  }
+
+  .profile {
+    width: 400px;
+  }
+
+  .center {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 455px) {
+  .stats {
+    display: flex;
+  }
+
+  .stats .box {
+    width: 115px;
+    height: 130px;
+  }
+
+  .stats .box:nth-child(2) {
+    border-left: 1px solid rgb(75, 167, 121);
+    border-right: 1px solid rgb(75, 167, 121);
+  }
+
+  .stats .value {
+    font-size: 23px;
+  }
+
+  .stats .parameter {
+    font-size: 15px;
+  }
+
+  .profile {
+    width: 350px;
+  }
+
+  .center {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .stats .box {
+    width: 102px;
+    height: 120px;
+  }
+
+  .stats .value {
+    font-size: 20px;
+  }
+
+  .stats .box:nth-child(2) {
+    border-left: 1px solid rgb(75, 167, 121);
+    border-right: 1px solid rgb(75, 167, 121);
+  }
+
+  .stats .parameter {
+    font-size: 12px;
+  }
+
+  .profile {
+    width: 310px;
+  }
+
+  .center {
+    width: 310px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .stats .box {
+    width: 99px;
+    height: 120px;
+  }
+
+  .stats .box:nth-child(2) {
+    border-left: 1px solid rgb(75, 167, 121);
+    border-right: 1px solid rgb(75, 167, 121);
+  }
+
+  .stats .value {
+    font-size: 20px;
+  }
+
+  .stats .parameter {
+    font-size: 12px;
+  }
+
+  .profile {
+    width: 296px;
+  }
+
+  .center {
+    width: 296px;
+  }
+}

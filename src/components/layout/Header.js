@@ -20,8 +20,33 @@ export class Header extends Component {
             Add Lesson
           </Link>
         </li>
-        <span className="navbar-text mr-3">
-          <strong>{user ? `Welcome ${user.name}!` : ""}</strong>
+        <span className="navbar-text mr-3 ml-3">
+          {user ? (
+            <li className="nav-item">
+              <Link to="/profile">
+                {user.image ? (
+                  <img
+                    src={user.image}
+                    alt="image"
+                    className="img-fluid rounded-circle"
+                    width="30"
+                    height="30"
+                  />
+                ) : (
+                  <img
+                    src="https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png"
+                    alt="image"
+                    className="img-fluid rounded-circle"
+                    width="30"
+                    height="30"
+                  />
+                )}
+                {user.name}
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
         </span>
         <li className="nav-item">
           <button

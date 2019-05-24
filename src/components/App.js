@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import "../../src/style.css";
 
 import {
   HashRouter as Router,
@@ -15,6 +16,8 @@ import Header from "./layout/Header";
 import Alerts from "./layout/Alerts";
 import Login from "./accounts/Login";
 import Register from "./accounts/Register";
+import ProfileUpdate from "./accounts/ProfileUpdate";
+import Profile from "./accounts/Profile";
 import VerifyAccount from "./accounts/VerifyAccount";
 import PrivateRoute from "./common/PrivateRoute";
 
@@ -54,6 +57,12 @@ export class App extends Component {
                   component={LessonForm}
                 />
                 <PrivateRoute exact path="/lesson/:slug" component={Lesson} />
+                <PrivateRoute exact path="/profile" component={Profile} />
+                <PrivateRoute
+                  exact
+                  path="/profile/update"
+                  component={ProfileUpdate}
+                />
                 <PrivateRoute
                   exact
                   path="/update/:slug"

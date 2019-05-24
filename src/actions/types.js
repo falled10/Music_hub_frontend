@@ -22,3 +22,4 @@ export const UPDATE_LESSON = "UPDATE_LESSON";
 export const DELETE_LESSON = "DELETE_LESSON";
 export const LIKE_LESSON = "LIKE_LESSON";
 export const DISLIKE_LESSON = "DISLIKE_LESSON";
+export const PROFILE_UPDATE = "PROFILE_UPDATE";

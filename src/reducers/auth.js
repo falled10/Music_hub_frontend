@@ -12,7 +12,8 @@ import {
   GET_USERS,
   USERS_LOADING,
   USERS_NOT_LOADED,
-  GET_USER
+  GET_USER,
+  PROFILE_UPDATE
 } from "../actions/types";
 
 const initialState = {
@@ -85,6 +86,12 @@ export default function(state = initialState, action) {
         token: action.payload.access,
         isAuthenticated: true,
         isLoading: false
+      };
+
+    case PROFILE_UPDATE:
+      return {
+        ...state,
+        user: action.payload
       };
 
     case AUTH_ERROR:

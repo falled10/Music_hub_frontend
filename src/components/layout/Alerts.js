@@ -45,6 +45,9 @@ export class Alerts extends Component {
       if (message.deleteLesson) {
         alert.success(message.deleteLesson);
       }
+      if (message.updateProfile) {
+        alert.success(message.updateProfile);
+      }
       if (message.passwordsNotMatch) {
         alert.error(message.passwordsNotMatch);
       }
