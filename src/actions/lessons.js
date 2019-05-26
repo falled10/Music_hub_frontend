@@ -26,13 +26,17 @@ export const createLesson = lesson => (dispatch, getState) => {
     });
 };
 
-export const allLessons = () => (dispatch, getState) => {
+export const allLessons = pageNumber => (dispatch, getState) => {
   axios
-    .get("http://localhost:8000/api/lessons/", tokenConfig(getState))
+    .get(
+      `http://localhost:8000/api/lessons/?page=${pageNumber}`,
+      tokenConfig(getState)
+    )
     .then(res => {
       dispatch({
         type: GET_LESSONS,
-        payload: res.data
+        payload: res.data.results,
+        totalPages: res.data.total_pages
       });
     })
     .catch(err => {
@@ -102,22 +106,7 @@ export const likeLesson = slug => (dispatch, getState) => {
       null,
       tokenConfig(getState)
     )
-    .then(res => {
-      if (res.status == 204) {
-        dispatch({
-          type: DISLIKE_LESSON,
-          payload: getState().auth.user.id,
-          slug: slug
-        });
-      } else {
-        console.log(res.data);
-        dispatch({
-          type: LIKE_LESSON,
-          payload: res.data,
-          slug: slug
-        });
-      }
-    })
+    .then(res => {})
     .catch(err =>
       dispatch(returnErrors(err.response.data, err.response.status))
     );

@@ -22,9 +22,12 @@ import UserProfile from "./accounts/UserProfile";
 import VerifyAccount from "./accounts/VerifyAccount";
 import PrivateRoute from "./common/PrivateRoute";
 
+import Subscribers from "./accounts/Subscribers";
+
 import Dashboard from "./lessons/Dashboard";
 import LessonForm from "./lessons/LessonForm";
 import Lesson from "./lessons/Lesson";
+import Likers from "./lessons/Likers";
 import LessonUpdateForm from "./lessons/LessonUpdateForm";
 
 import { Provider } from "react-redux";
@@ -59,7 +62,17 @@ export class App extends Component {
                 />
                 <PrivateRoute exact path="/lesson/:slug" component={Lesson} />
                 <PrivateRoute exact path="/profile" component={Profile} />
+                <PrivateRoute
+                  exact
+                  path="/user/:id/subscribers"
+                  component={Subscribers}
+                />
                 <PrivateRoute exact path="/user/:id" component={UserProfile} />
+                <PrivateRoute
+                  exact
+                  path="/lesson/:slug/likers"
+                  component={Likers}
+                />
                 <PrivateRoute
                   exact
                   path="/profile/update"

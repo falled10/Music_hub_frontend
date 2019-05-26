@@ -27,11 +27,8 @@ export class Alerts extends Component {
       if (error.msg.password) {
         alert.error(`Password ${error.msg.password.join()}`);
       }
-      if (
-        error.msg.detail ===
-        "No active account found with the given credentials"
-      ) {
-        alert.error(error.msg.detail);
+      if (error.msg === "Invalid credentials") {
+        alert.error(error.msg);
       }
     }
 
@@ -44,6 +41,12 @@ export class Alerts extends Component {
       }
       if (message.deleteLesson) {
         alert.success(message.deleteLesson);
+      }
+      if (message.subscribe) {
+        alert.success(message.subscribe);
+      }
+      if (message.unsubscribe) {
+        alert.success(message.unsubscribe);
       }
       if (message.updateProfile) {
         alert.success(message.updateProfile);

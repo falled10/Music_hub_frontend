@@ -36,7 +36,7 @@ export const getUsers = () => (dispatch, getState) => {
   });
 
   axios
-    .get("http://localhost:8000/api/users/", tokenConfig(getState))
+    .get(`http://localhost:8000/api/users/`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_USERS,

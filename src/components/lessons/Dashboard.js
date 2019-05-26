@@ -4,12 +4,15 @@ import { getUsers } from "../../actions/auth";
 import { connect } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import PropTypes from "prop-types";
+import Pagination from "react-pagination-library";
+import "react-pagination-library/build/css/index.css"; //for css
 import { Link } from "react-router-dom";
 
 export class Dashboard extends Component {
   state = {
     lessons: [],
-    users: []
+    users: [],
+    activePage: 1
   };
 
   static propTypes = {
@@ -21,19 +24,40 @@ export class Dashboard extends Component {
 
   componentWillMount() {
     this.props.getUsers();
-    this.props.allLessons();
+    this.props.allLessons(this.state.activePage);
   }
 
-  onLikeLesson = slug => {
+  onLikeLesson = (slug, id) => {
     this.props.likeLesson(slug);
+    const les = this.props.lessons;
+    if (
+      les
+        .find(l => l.id === id)
+        .likes.some(like => like.liker.id === this.props.user.id)
+    ) {
+      les.find(l => l.id === id).likes = les
+        .find(l => l.id === id)
+        .likes.filter(like => like.liker.id !== this.props.user.id);
+    } else {
+      les
+        .find(l => l.id === id)
+        .likes.push({ lesson: id, liker: this.props.user });
+    }
+    this.setState({ lessons: les });
+  };
+
+  handlePageChange = pageNumber => {
+    this.setState({ activePage: pageNumber });
+    this.props.allLessons(this.state.activePage);
   };
 
   componentWillReceiveProps(nextProps) {
-    const { lessons, users } = nextProps;
-    this.setState({ lessons, users });
+    this.setState({ lessons: nextProps.lessons, users: nextProps.users });
+    console.log(this.state.lessons);
   }
   render() {
     const { lessons, users } = this.state;
+    console.log(lessons);
     if (users.length > 0 && this.props.user) {
       return (
         <div>
@@ -68,7 +92,7 @@ export class Dashboard extends Component {
 
                     {lesson.owner.name}
                   </Link>
-                  {this.props.user.id == lesson.owner ? (
+                  {this.props.user.id == lesson.owner.id ? (
                     <p className="text-right">
                       <button
                         type="button"
@@ -87,14 +111,14 @@ export class Dashboard extends Component {
                   <h5 className="card-title">{lesson.title}</h5>
                   <ReactMarkdown source={lesson.body.substring(0, 100)} />
                   <Link
-                    to={`/lesson/${lesson.slug}`}
+                    to={`/lesson/${lesson.slug}/`}
                     className="btn btn-primary"
                   >
                     Read more...
                   </Link>
                   {this.props.user.id == lesson.owner.id ? (
                     <Link
-                      to={`/update/${lesson.slug}`}
+                      to={`/update/${lesson.slug}/`}
                       className="btn btn-primary ml-2"
                     >
                       Update
@@ -105,7 +129,11 @@ export class Dashboard extends Component {
                   <p className="text-right">
                     <button
                       className="btn btn-link"
-                      onClick={this.onLikeLesson.bind(this, lesson.slug)}
+                      onClick={this.onLikeLesson.bind(
+                        this,
+                        lesson.slug,
+                        lesson.id
+                      )}
                     >
                       {lesson.likes.some(
                         like => like.liker.id === this.props.user.id
@@ -115,7 +143,9 @@ export class Dashboard extends Component {
                         <i className="far fa-heart fa-2x" aria-hidden="true" />
                       )}
                     </button>
-                    {lesson.likes.length}
+                    <Link to={`/lesson/${lesson.slug}/likers/`}>
+                      {lesson.likes.length}
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -170,6 +200,12 @@ export class Dashboard extends Component {
               </div>
             </div>
           ))}
+          <Pagination
+            currentPage={this.state.activePage}
+            totalPages={this.props.totalPages}
+            changeCurrentPage={this.handlePageChange}
+            theme="bottom-border"
+          />
         </div>
       );
     } else {
@@ -183,7 +219,8 @@ const mapStateToProps = state => ({
   isAuhtenticated: state.auth.isAuhtenticated,
   user: state.auth.user,
   users: state.auth.users,
-  lessons: state.lessons.lessons
+  lessons: state.lessons.lessons,
+  totalPages: state.lessons.totalPages
 });
 
 export default connect(

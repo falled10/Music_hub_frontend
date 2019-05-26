@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getSubscribers } from "../../actions/subscribers";
 import { Link } from "react-router-dom";
 
 export class Profile extends Component {
+  state = {
+    subscribers: []
+  };
+
+  componentDidMount() {
+    this.props.getSubscribers(this.props.user.id);
+  }
+
   render() {
     if (this.props.user) {
       const { user } = this.props;
@@ -42,8 +51,15 @@ export class Profile extends Component {
                       <span className="parameter">Quizes</span>
                     </div>
                     <div className="box">
-                      <span className="value">537</span>
-                      <span className="parameter">Quizes</span>
+                      <Link
+                        to={`/user/${user.id}/subscribers/`}
+                        className="btn"
+                      >
+                        <span className="value">
+                          {this.props.subscribers.length}
+                        </span>
+                        <span className="parameter">Followers</span>
+                      </Link>
                     </div>
                     <div className="box">
                       <span className="value">537</span>
@@ -63,7 +79,11 @@ export class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user
+  user: state.auth.user,
+  subscribers: state.subscribers.subscribers
 });
 
-export default connect(mapStateToProps)(Profile);
+export default connect(
+  mapStateToProps,
+  { getSubscribers }
+)(Profile);

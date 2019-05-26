@@ -62,9 +62,9 @@ export class MarkdownEditor extends Component {
   };
 
   render() {
-    if (!this.state.lesson && this.props.errors.state != 404) {
+    if (!this.state.lesson) {
       return <h2>Loading...</h2>;
-    } else if (this.props.user.id == this.state.lesson.owner) {
+    } else if (this.props.user.id == this.state.lesson.owner.id) {
       return (
         <div className="container mt-5">
           <h2>Create New Lesson with markdown</h2>

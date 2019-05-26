@@ -12,7 +12,8 @@ const initialState = {
   title: "",
   value: "",
   lessons: [],
-  lesson: {}
+  lesson: {},
+  totalPages: 0
 };
 
 export default function(state = initialState, action) {
@@ -26,7 +27,8 @@ export default function(state = initialState, action) {
     case GET_LESSONS:
       return {
         ...state,
-        lessons: action.payload
+        lessons: action.payload,
+        totalPages: action.totalPages
       };
 
     case CREATE_LESSON:
@@ -48,29 +50,10 @@ export default function(state = initialState, action) {
     case DELETE_LESSON:
       return {
         ...state,
-        lessons: state.lessons.filter(lesson => lesson.slug !== action.payload)
-      };
-
-    case LIKE_LESSON:
-      state.lessons.find(lesson => lesson.slug === action.slug).likes = [
-        ...state.lessons
-          .find(l => l.slug === action.slug)
-          .likes.filter(l => l.liker !== action.payload.liker),
-        action.payload
-      ];
-      return {
-        ...state,
-        lessons: [...state.lessons]
-      };
-    case DISLIKE_LESSON:
-      state.lessons.find(lesson => lesson.slug === action.slug).likes = [
-        ...state.lessons
-          .find(l => l.slug === action.slug)
-          .likes.filter(l => l.liker.id !== action.payload)
-      ];
-      return {
-        ...state,
-        lessons: [...state.lessons]
+        lessons: state.lessons.filter(
+          lesson => lesson.slug !== action.payload
+        ),
+        lesson: null
       };
   }
 }
