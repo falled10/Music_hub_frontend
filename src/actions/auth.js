@@ -15,7 +15,8 @@ import {
   USERS_LOADING,
   USERS_NOT_LOADED,
   GET_USER,
-  PROFILE_UPDATE
+  PROFILE_UPDATE,
+  INVALID_TOKEN
 } from "./types";
 
 export const getUser = id => (dispatch, getState) => {
@@ -62,6 +63,14 @@ export const loadUser = () => (dispatch, getState) => {
     })
     .catch(err => {
       console.log(err.response.data.code);
+      if (
+        err.response.data.code &&
+        err.response.data.code === "token_not_valid"
+      ) {
+        dispatch({
+          type: INVALID_TOKEN
+        });
+      }
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: AUTH_ERROR

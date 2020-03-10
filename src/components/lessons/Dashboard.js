@@ -109,7 +109,7 @@ export class Dashboard extends Component {
                 </div>
                 <div className="card-body">
                   <h5 className="card-title">{lesson.title}</h5>
-                  <ReactMarkdown source={lesson.body.substring(0, 100)} />
+                  <ReactMarkdown source={lesson.body.substring(0, 300)} />
                   <Link
                     to={`/lesson/${lesson.slug}/`}
                     className="btn btn-primary"
